@@ -1,28 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Template MD mod by Laryakan, May 2025 -->
+<!-- FBHUnlock mod by Laryakan, May 2025 -->
 <!-- mdscript doc : https://wiki.egosoft.com/X%20Rebirth%20Wiki/Modding%20support/Mission%20Director%20Guide/ -->
 <mdscript xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="md.xsd" name="FBHUnlock">
 	<cues>
-		<cue name="MdTemplate_Start" instantiate="true" namespace="this">
+		<cue name="FBHUnlock_Start" instantiate="true" namespace="this">
 			<conditions>
-				<!-- Trigger at each game load or game start -->
-				<event_cue_signalled cue="md.Setup.Start"/>
+				<check_any>
+					<!-- Trigger at each game load or game start (usefull here ? since we check already when played as done the research) -->
+					<!-- <event_cue_signalled cue="md.Setup.Start"/> -->
+					<!-- Game base check on Xenon research -->
+					<check_value value="ware.research_equipment_xenon.research.unlocked"/>
+					<event_player_research_unlocked ware="ware.research_equipment_xenon"/>
+					<!-- Setup condition for the XenonF to be added to space by Timelines -->
+					<check_value value="@userdata.scenario_escort_1_best_rating" min="1"/>
+					<!-- Setup condition for the XenonB to be added to space by Timelines -->
+					<check_value value="@userdata.scenario_waveattack_antigone_best_rating" min="1"/>
+					<!-- Setup condition for the XenonH to be added to space by Timelines -->
+					<check_value value="@userdata.scenario_tharkas_cascade_best_rating" min="1"/>
+					<!-- Timelines requirements by-pass -->
+					<check_value value="gamestart.storystate.story_timelines_quettanaut"/>
+					<check_value value="gamestart.storystate.story_timelines_grandmother"/>
+				</check_any>
 			</conditions>
 			<!-- Delay before executing cue actions ? -->
 			<delay exact="1s"/>
 			<actions>
-				<!-- Looking if Xenon F is owned by player -->				
+				<!-- Looking if Xenon F is owned by player -->
 				<find_ship_by_true_owner name="$PlayerXenonF" faction="faction.player" macro="macro.ship_xen_s_heavyfighter_01_a_macro" multiple="false" space="player.galaxy"/>
-				<debug_text text="'Found XenonF : { ' + $PlayerXenonF + ' } '"/>
-				
-				<!-- Looking if Xenon B is owned by player -->				
+				<debug_text text="'Found Player XenonF : { ' + $PlayerXenonF + ' } '"/>
+				<!-- Looking if Xenon B is owned by player -->
 				<find_ship_by_true_owner name="$PlayerXenonB" faction="faction.player" macro="macro.ship_xen_m_corvette_01_a_macro" multiple="false" space="player.galaxy"/>
-				<debug_text text="'Found XenonB : { ' + $PlayerXenonB + ' } '"/>
-				
-				<!-- Looking if Xenon H is owned by player -->	
+				<debug_text text="'Found Player XenonB : { ' + $PlayerXenonB + ' } '"/>
+				<!-- Looking if Xenon H is owned by player -->
 				<find_ship_by_true_owner name="$PlayerXenonH" faction="faction.player" macro="macro.ship_xen_l_terraformer_01_a_macro" multiple="false" space="player.galaxy"/>
-				<debug_text text="'Found XenonH : { ' + $PlayerXenonH + ' } '"/>
-				
+				<debug_text text="'Found Player XenonH : { ' + $PlayerXenonH + ' } '"/>
 				<!-- in game notification -->
 				<!-- reset listener after this cue instance is destroyed (or not if you want it to be executed a single time, then you dont need to instanciate cue) -->
 				<reset_cue cue="this"/>

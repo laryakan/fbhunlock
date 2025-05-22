@@ -158,3 +158,25 @@ RESEARCH:
 </ware>
   
 looking a way to implement from extensions/ego_dlc_timelines/md/story_research_abandoned_ships.xml
+=>I check if the player own these sips
+
+story_research_xen_equipment.xml to see how to unlock research after the initial xenon research (obtained with a destroyed H cristal shard)
+
+xenon to default amounts conversion : 
+    <production time="20" amount="1" method="default" name="{20206,101}">
+      <primary>
+        <ware ware="antimatterconverters" amount="120" />
+        <ware ware="energycells" amount="10" />
+        <ware ware="engineparts" amount="48" />
+      </primary>
+    </production>
+    <production time="10" amount="1" method="xenon" name="{20206,601}" tags="noplayerbuild">
+      <primary>
+        <ware ware="energycells" amount="10" />
+        <ware ware="ore" amount="324" />
+        <ware ware="silicon" amount="324" />
+      </primary>
+    </production>
+
+create a interval check on a cue with condition on ship ownership
+

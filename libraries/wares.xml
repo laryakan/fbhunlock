@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- New wares (research and ship from FBHUnlock) -->
+<!-- @todo building material amounts may need to be adjusted -->
+<diff>
+	<!-- ========================= XENON F ========================= -->
+	<!-- Xenon F : Adding research -->
+	<add sel="/wares">
+		<ware id="research_ship_xen_s_heavyfighter_01" name="{20101,71801}" description="{20101,71811}" transport="research" volume="1" tags="nocustomgamestart research" sortorder="601">
+			<price min="1" average="1" max="1"/>
+			<research time="450">
+				<primary>
+					<ware ware="energycells" amount="360"/>
+					<ware ware="fieldcoils" amount="15"/>
+					<ware ware="plasmaconductors" amount="23"/>
+					<ware ware="superfluidcoolant" amount="48"/>
+				</primary>
+				<research>
+					<ware ware="research_equipment_xenon"/>
+				</research>
+			</research>
+		</ware>
+	</add>
+	<!--  Xenon F : Changing default method for xenon method (non accessible to player) -->
+	<replace sel="/wares/ware[@id='ship_xen_s_heavyfighter_01_a']/production[@method='default']/@method">xenon</replace>
+	<!--  Xenon F : Adding production method for the player -->
+	<add sel="/wares/ware[@id='ship_xen_s_heavyfighter_01_a']">
+		<production time="460" amount="1" method="default" name="{20206,601}">
+			<primary>
+				<ware ware="energycells" amount="115"/>
+				<ware ware="hullparts" amount="265"/>
+			</primary>
+		</production>
+		<production time="460" amount="1" method="terran" name="{20206,901}">
+			<primary>
+				<ware ware="computronicsubstrate" amount="15"/>
+				<ware ware="energycells" amount="117"/>
+				<ware ware="metallicmicrolattice" amount="27"/>
+			</primary>
+		</production>
+	</add>
+	<!-- ========================= XENON B ========================= -->
+	<!-- Xenon B : Adding research -->
+	<add sel="/wares">
+		<ware id="research_ship_xen_m_corvette_01" name="{20101,71601}" description="{20101,71611}" transport="research" volume="1" tags="nocustomgamestart research" sortorder="601">
+			<price min="1" average="1" max="1"/>
+			<research time="580">
+				<primary>
+					<ware ware="antimattercells" amount="54"/>
+					<ware ware="energycells" amount="415"/>
+					<ware ware="engineparts" amount="172"/>
+					<ware ware="smartchips" amount="148"/>
+				</primary>
+				<research>
+					<ware ware="research_equipment_xenon"/>
+				</research>
+			</research>
+		</ware>
+	</add>
+	<!--  Xenon B : Changing default method for xenon method (non accessible to player) -->
+	<replace sel="/wares/ware[@id='ship_xen_m_corvette_01_a']/production[@method='default']/@method">xenon</replace>
+	<!--  Xenon B : Adding production method for the player -->
+	<add sel="/wares/ware[@id='ship_xen_m_corvette_01_a']">
+		<production time="460" amount="1" method="default" name="{20206,601}">
+			<primary>
+				<ware ware="energycells" amount="170"/>
+				<ware ware="hullparts" amount="950"/>
+			</primary>
+		</production>
+		<production time="460" amount="1" method="terran" name="{20206,901}">
+			<primary>
+				<ware ware="computronicsubstrate" amount="24"/>
+				<ware ware="energycells" amount="285"/>
+				<ware ware="metallicmicrolattice" amount="42"/>
+			</primary>
+		</production>
+	</add>
+	<!-- ========================= XENON H ========================= -->
+	<!-- Xenon H : Adding research -->
+	<add sel="/wares">
+		<ware id="research_ship_xen_l_terraformer_01" name="{20101,72001}" description="{20101,72011}" transport="research" volume="1" tags="nocustomgamestart research" sortorder="601">
+			<price min="1" average="1" max="1"/>
+			<research time="640">
+				<primary>
+					<ware ware="advancedelectronics" amount="20"/>
+					<ware ware="energycells" amount="760"/>
+					<ware ware="refinedmetals" amount="78"/>
+					<ware ware="scanningarrays" amount="52"/>
+				</primary>
+				<research>
+					<ware ware="research_equipment_xenon"/>
+				</research>
+			</research>
+		</ware>
+	</add>
+	<!--  Xenon H : Changing default method for xenon method (non accessible to player) -->
+	<replace sel="/wares/ware[@id='ship_xen_l_terraformer_01_a']/production[@method='default']/@method">xenon</replace>
+	<!--  Xenon H : Adding production method for the player -->
+	<add sel="/wares/ware[@id='ship_xen_l_terraformer_01_a']">
+		<production time="460" amount="1" method="default" name="{20206,601}">
+			<primary>
+				<ware ware="energycells" amount="1008"/>
+				<ware ware="hullparts" amount="4433"/>
+			</primary>
+		</production>
+		<production time="460" amount="1" method="terran" name="{20206,901}">
+			<primary>
+				<ware ware="computronicsubstrate" amount="281"/>
+				<ware ware="energycells" amount="1034"/>
+				<ware ware="metallicmicrolattice" amount="471"/>
+			</primary>
+		</production>
+	</add>
+</diff>
