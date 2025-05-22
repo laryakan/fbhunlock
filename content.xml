@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<content id="fbhunlock"
+name="F,B&amp;HUnlock"
+description="Unlock the F B and H blueprint research once getting them from Timelines"
+author="Laryakan"
+version="100"
+date="2025-05-22"
+save="false"
+enabled="1" >
+<dependency id="ego_dlc_timelines" optional="false" name="Timelines"/> 
+</content>

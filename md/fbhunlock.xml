@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Template MD mod by Laryakan, May 2025 -->
+<!-- mdscript doc : https://wiki.egosoft.com/X%20Rebirth%20Wiki/Modding%20support/Mission%20Director%20Guide/ -->
+<mdscript xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="md.xsd" name="FBHUnlock">
+	<cues>
+		<cue name="MdTemplate_Start" instantiate="true" namespace="this">
+			<conditions>
+				<!-- Trigger at each game load or game start -->
+				<event_cue_signalled cue="md.Setup.Start"/>
+			</conditions>
+			<!-- Delay before executing cue actions ? -->
+			<delay exact="1s"/>
+			<actions>
+				<!-- Looking if Xenon F is owned by player -->				
+				<find_ship_by_true_owner name="$PlayerXenonF" faction="faction.player" macro="macro.ship_xen_s_heavyfighter_01_a_macro" multiple="false" space="player.galaxy"/>
+				<debug_text text="'Found XenonF : { ' + $PlayerXenonF + ' } '"/>
+				
+				<!-- Looking if Xenon B is owned by player -->				
+				<find_ship_by_true_owner name="$PlayerXenonB" faction="faction.player" macro="macro.ship_xen_m_corvette_01_a_macro" multiple="false" space="player.galaxy"/>
+				<debug_text text="'Found XenonB : { ' + $PlayerXenonB + ' } '"/>
+				
+				<!-- Looking if Xenon H is owned by player -->	
+				<find_ship_by_true_owner name="$PlayerXenonH" faction="faction.player" macro="macro.ship_xen_l_terraformer_01_a_macro" multiple="false" space="player.galaxy"/>
+				<debug_text text="'Found XenonH : { ' + $PlayerXenonH + ' } '"/>
+				
+				<!-- in game notification -->
+				<!-- reset listener after this cue instance is destroyed (or not if you want it to be executed a single time, then you dont need to instanciate cue) -->
+				<reset_cue cue="this"/>
+			</actions>
+		</cue>
+		<cue name="XenonF_Research_Unlock">
+			<conditions>
+				<event_cue_signalled/>
+				<check_any>
+					<!-- Setup condition for the XenonF to be added to space by Timelines -->
+					<check_value value="@userdata.scenario_escort_1_best_rating" min="1"/>
+					<check_value value="gamestart.storystate.story_timelines_quettanaut"/>
+					<check_value value="gamestart.storystate.story_timelines_grandmother"/>
+				</check_any>
+			</conditions>
+			<!-- Delay before executing cue actions ? -->
+			<delay exact="1s"/>
+			<actions>
+				<debug_text text="'In XenonF Unlock'"/>
+				<!-- useless to reset listener once research is unlocked -->
+			</actions>
+		</cue>
+		<cue name="XenonB_Research_Unlock">
+			<conditions>
+				<event_cue_signalled/>
+				<check_any>
+					<!-- Setup condition for the XenonB to be added to space by Timelines -->
+					<check_value value="@userdata.scenario_waveattack_antigone_best_rating" min="1"/>
+					<check_value value="gamestart.storystate.story_timelines_quettanaut"/>
+					<check_value value="gamestart.storystate.story_timelines_grandmother"/>
+				</check_any>
+			</conditions>
+			<!-- Delay before executing cue actions ? -->
+			<delay exact="1s"/>
+			<actions>
+				<debug_text text="'In XenonB Unlock'"/>
+				<!-- useless to reset listener once research is unlocked -->
+			</actions>
+		</cue>
+		<cue name="XenonH_Research_Unlock">
+			<conditions>
+				<event_cue_signalled/>
+				<check_any>
+					<!-- Setup condition for the XenonH to be added to space by Timelines -->
+					<check_value value="@userdata.scenario_tharkas_cascade_best_rating" min="1"/>
+					<check_value value="gamestart.storystate.story_timelines_quettanaut"/>
+					<check_value value="gamestart.storystate.story_timelines_grandmother"/>
+				</check_any>
+			</conditions>
+			<!-- Delay before executing cue actions ? -->
+			<delay exact="1s"/>
+			<actions>
+				<debug_text text="'In XenonH Unlock'"/>
+				<!-- useless to reset listener once research is unlocked -->
+			</actions>
+		</cue>
+	</cues>
+</mdscript>

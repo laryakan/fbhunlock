@@ -1,0 +1,160 @@
+f: ship_xen_s_heavyfighter_01_a
+XENON:
+<ware id="ship_xen_s_heavyfighter_01_a" name="{20101,71801}" description="{20101,71811}" transport="ship" volume="1" tags="nocustomgamestart ship">
+	<price min="57630" average="67800" max="77970" />
+	<production time="12" amount="1" method="default" name="{20206,601}" tags="noplayerbuild">
+		<primary>
+			<ware ware="energycells" amount="60" />
+			<ware ware="ore" amount="70" />
+			<ware ware="silicon" amount="70" />
+		</primary>
+	</production>
+	<component ref="ship_xen_s_heavyfighter_01_a_macro" />
+	<restriction licence="militaryship" />
+	<owner faction="xenon" />
+</ware>
+
+b: ship_xen_m_corvette_01_a
+XENON :
+<ware id="ship_xen_m_corvette_01_a" name="{20101,71601}" description="{20101,71611}" transport="ship" volume="1" tags="nocustomgamestart ship">
+	<price min="84660" average="99600" max="114540" />
+	<production time="20" amount="1" method="default" name="{20206,601}" tags="noplayerbuild">
+		<primary>
+			<ware ware="energycells" amount="120" />
+			<ware ware="ore" amount="100" />
+			<ware ware="silicon" amount="100" />
+		</primary>
+	</production>
+	<component ref="ship_xen_m_corvette_01_a_macro" />
+	<restriction licence="militaryship" />
+	<owner faction="xenon" />
+</ware>
+
+h: ship_xen_l_terraformer_01_a
+XENON:
+<ware id="ship_xen_l_terraformer_01_a" name="{20101,72001}" description="{20101,72011}" transport="ship" volume="1" tags="nocustomgamestart ship">
+	<price min="1424804" average="1676240" max="1927676" />
+	<production time="460" amount="1" method="default" name="{20206,601}" tags="noplayerbuild">
+		<primary>
+			<ware ware="energycells" amount="2503" />
+			<ware ware="ore" amount="1640" />
+			<ware ware="silicon" amount="1640" />
+		</primary>
+	</production>
+	<component ref="ship_xen_l_terraformer_01_a_macro" />
+	<restriction licence="capitalship" />
+	<owner faction="xenon" />
+</ware>
+
+======================================
+cutlass : ship_ter_s_fighter_04_a
+TERRAN :
+<add sel="/wares/ware[@id='ship_ter_s_fighter_04_a']" if="/wares/production/method[@id='terran']" silent="1">
+<production time="15" amount="1" method="terran" name="{20206,901}">
+	<primary>
+		<ware ware="computronicsubstrate" amount="7" />
+		<ware ware="energycells" amount="85" />
+		<ware ware="metallicmicrolattice" amount="25" />
+	</primary>
+</production>
+DEFAULT:
+<ware id="ship_ter_s_fighter_04_a" name="{20101,60401}" description="{20101,60411}" transport="ship" volume="1" tags="nocustomgamestart ship">
+	<price min="275041" average="343801" max="412561" />
+	<production time="15" amount="1" method="default" name="{20206,101}">
+		<primary>
+			<ware ware="energycells" amount="115" />
+			<ware ware="hullparts" amount="265" />
+		</primary>
+	</production>
+	<component ref="ship_ter_s_fighter_04_a_macro" />
+	<restriction licence="militaryship" />
+	<owner faction="ownerless" />
+</ware>
+RESEARCH:
+<ware id="research_ship_ter_s_fighter_01" name="{20216,2501}" description="{20216,2502}" transport="research" volume="1" tags="nocustomgamestart research" sortorder="601">
+	<price min="1" average="1" max="1" />
+	<research time="450">
+		<primary>
+			<ware ware="energycells" amount="360" />
+			<ware ware="fieldcoils" amount="15" />
+			<ware ware="plasmaconductors" amount="23" />
+			<ware ware="superfluidcoolant" amount="48" />
+		</primary>
+	</research>
+</ware>
+	
+odachi : ship_ter_m_corvette_02_a
+TERRAN :
+<add sel="/wares/ware[@id='ship_ter_m_corvette_02_a']" if="/wares/production/method[@id='terran']" silent="1">
+	<production time="15" amount="1" method="terran" name="{20206,901}">
+	  <primary>
+		<ware ware="computronicsubstrate" amount="24" />
+		<ware ware="energycells" amount="285" />
+		<ware ware="metallicmicrolattice" amount="42" />
+	  </primary>
+	</production>
+</add>
+ DEFAULT :
+<ware id="ship_ter_m_corvette_02_a" name="{20101,64801}" description="{20101,64811}" transport="ship" volume="1" tags="nocustomgamestart ship">
+	<price min="1128622" average="1410777" max="1692933" />
+	<production time="15" amount="1" method="default" name="{20206,101}">
+		<primary>
+			<ware ware="energycells" amount="170" />
+			<ware ware="hullparts" amount="950" />
+		</primary>
+	</production>
+	<component ref="ship_ter_m_corvette_02_a_macro" />
+	<restriction licence="militaryship" />
+	<owner faction="ownerless" />
+</ware>
+RESEARCH:
+<ware id="research_ship_ter_m_corvette_01" name="{20216,2601}" description="{20216,2602}" transport="research" volume="1" tags="nocustomgamestart research" sortorder="601">
+<price min="1" average="1" max="1" />
+<research time="580">
+	<primary>
+		<ware ware="antimattercells" amount="54" />
+		<ware ware="energycells" amount="415" />
+		<ware ware="engineparts" amount="172" />
+		<ware ware="smartchips" amount="148" />
+	</primary>
+</research>
+</ware>
+  
+sapporo : ship_ter_l_flagship_01_a
+TERRAN :
+<add sel="/wares/ware[@id='ship_ter_l_flagship_01_a']" if="/wares/production/method[@id='terran']" silent="1">
+<production time="187" amount="1" method="terran" name="{20206,901}">
+	<primary>
+		<ware ware="computronicsubstrate" amount="124" />
+		<ware ware="energycells" amount="1365" />
+		<ware ware="metallicmicrolattice" amount="315" />
+	</primary>
+</production>
+</add>
+ DEFAULT :
+<ware id="ship_ter_l_flagship_01_a" name="{20101,62701}" description="{20101,62711}" transport="ship" volume="1" tags="nocustomgamestart ship">
+<price min="5679310" average="7099138" max="8518965" />
+<production time="187" amount="1" method="default" name="{20206,101}">
+	<primary>
+		<ware ware="energycells" amount="1850" />
+		<ware ware="hullparts" amount="4950" />
+	</primary>
+</production>
+<component ref="ship_ter_l_flagship_01_a_macro" />
+<restriction licence="capitalship" />
+<owner faction="ownerless" />
+</ware>
+RESEARCH:
+<ware id="research_ship_ter_l_flagship_01" name="{20216,2701}" description="{20216,2702}" transport="research" volume="1" tags="nocustomgamestart research" sortorder="601">
+	<price min="1" average="1" max="1" />
+	<research time="640">
+		<primary>
+			<ware ware="advancedelectronics" amount="20" />
+			<ware ware="energycells" amount="760" />
+			<ware ware="refinedmetals" amount="78" />
+			<ware ware="scanningarrays" amount="52" />
+		</primary>
+	</research>
+</ware>
+  
+looking a way to implement from extensions/ego_dlc_timelines/md/story_research_abandoned_ships.xml
