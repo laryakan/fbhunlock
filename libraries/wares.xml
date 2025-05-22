@@ -38,6 +38,25 @@
 			</primary>
 		</production>
 	</add>
+	<!--  Xenon F : Previous research do not unlock ship engine, we also add a method for this -->
+		<replace sel="/wares/ware[@id='engine_xen_s_combat_01_mk1']/production[@method='default']/@method">xenon</replace>
+	<!--  Xenon F : Adding production method for the player -->
+	<add sel="/wares/ware[@id='engine_xen_s_combat_01_mk1']">
+		<production time="10" amount="1" method="default" name="{20206,601}">
+			<primary>
+				<ware ware="energycells" amount="10" />
+				<ware ware="engineparts" amount="6" />
+			</primary>
+		</production>
+		<production time="10" amount="1" method="terran" name="{20206,901}">
+			<primary>
+				  <ware ware="energycells" amount="100" />
+				  <ware ware="metallicmicrolattice" amount="36" />
+				  <ware ware="siliconcarbide" amount="4" />
+			</primary>
+		</production>
+	</add>
+	
 	<!-- ========================= XENON B ========================= -->
 	<!-- Xenon B : Adding research -->
 	<add sel="/wares">
@@ -110,4 +129,11 @@
 			</primary>
 		</production>
 	</add>
+	
+	<!-- ========================= DEBUG ========================= -->
+	<!-- This is for debug purpose, it will unlock research_equipment_xenon for custom game , end user version -->
+	<replace sel="/wares/ware[@id='research_equipment_xenon']/@tags">research</replace>
+	<replace sel="/wares/ware[@id='research_ship_xen_s_heavyfighter_01']/@tags">research</replace>
+	<replace sel="/wares/ware[@id='research_ship_xen_m_corvette_01']/@tags">research</replace>
+	<replace sel="/wares/ware[@id='research_ship_xen_l_terraformer_01']/@tags">research</replace>
 </diff>

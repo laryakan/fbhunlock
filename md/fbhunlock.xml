@@ -3,27 +3,12 @@
 <!-- mdscript doc : https://wiki.egosoft.com/X%20Rebirth%20Wiki/Modding%20support/Mission%20Director%20Guide/ -->
 <mdscript xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="md.xsd" name="FBHUnlock">
 	<cues>
-		<cue name="FBHUnlock_Start" instantiate="true" namespace="this">
+		<!-- debug cue... for debugging :-) -->
+		<cue name="debug_state" instantiate="true">
 			<conditions>
-				<check_any>
-					<!-- Trigger at each game load or game start (usefull here ? since we check already when played as done the research) -->
-					<!-- <event_cue_signalled cue="md.Setup.Start"/> -->
-					<!-- Game base check on Xenon research -->
-					<check_value value="ware.research_equipment_xenon.research.unlocked"/>
-					<event_player_research_unlocked ware="ware.research_equipment_xenon"/>
-					<!-- Setup condition for the XenonF to be added to space by Timelines -->
-					<check_value value="@userdata.scenario_escort_1_best_rating" min="1"/>
-					<!-- Setup condition for the XenonB to be added to space by Timelines -->
-					<check_value value="@userdata.scenario_waveattack_antigone_best_rating" min="1"/>
-					<!-- Setup condition for the XenonH to be added to space by Timelines -->
-					<check_value value="@userdata.scenario_tharkas_cascade_best_rating" min="1"/>
-					<!-- Timelines requirements by-pass -->
-					<check_value value="gamestart.storystate.story_timelines_quettanaut"/>
-					<check_value value="gamestart.storystate.story_timelines_grandmother"/>
-				</check_any>
+				<!-- Trigger at each game load or game start (usefull here ? since we check already when played as done the research) -->
+				<event_cue_signalled cue="md.Setup.Start"/>
 			</conditions>
-			<!-- Delay before executing cue actions ? -->
-			<delay exact="1s"/>
 			<actions>
 				<!-- Looking if Xenon F is owned by player -->
 				<find_ship_by_true_owner name="$PlayerXenonF" faction="faction.player" macro="macro.ship_xen_s_heavyfighter_01_a_macro" multiple="false" space="player.galaxy"/>
@@ -34,60 +19,194 @@
 				<!-- Looking if Xenon H is owned by player -->
 				<find_ship_by_true_owner name="$PlayerXenonH" faction="faction.player" macro="macro.ship_xen_l_terraformer_01_a_macro" multiple="false" space="player.galaxy"/>
 				<debug_text text="'Found Player XenonH : { ' + $PlayerXenonH + ' } '"/>
+				<!-- Search for a list of player ships -->
+				<debug_text text="'Player : { ' + player + ' } '"/>
+				<!-- Search for a list of abandonned ships ? From which we can know if it has been claimed since -->
+				<debug_text text="'AbandonedShips ? : { ' + global.$IgnoredAbandonedShips + ' } '"/>
 				<!-- in game notification -->
 				<!-- reset listener after this cue instance is destroyed (or not if you want it to be executed a single time, then you dont need to instanciate cue) -->
 				<reset_cue cue="this"/>
 			</actions>
 		</cue>
-		<cue name="XenonF_Research_Unlock">
+		<!-- ============											START 					===================================== -->
+		<!-- Initial check after installing the mod, to know in which state the player was (already captured F, H or B ? Already researched Xenon ?) -->
+		<!-- Need to find a listener on an capture event if the player the the ship after game start -->
+		<cue name="check_state" instantiate="true" checkinterval="10s">
 			<conditions>
-				<event_cue_signalled/>
 				<check_any>
-					<!-- Setup condition for the XenonF to be added to space by Timelines -->
-					<check_value value="@userdata.scenario_escort_1_best_rating" min="1"/>
-					<check_value value="gamestart.storystate.story_timelines_quettanaut"/>
-					<check_value value="gamestart.storystate.story_timelines_grandmother"/>
+					<!-- Trigger at each game load or game start (usefull here ? since we check already when played as done the research) -->
+					<event_cue_signalled cue="md.Setup.Start"/>
+					<!-- Game base check on Xenon research, no need to go futher if not fulfilled -->
+					<event_player_research_unlocked ware="ware.research_equipment_xenon"/>
+					<!-- Listening on every claim made by the player to see if its one of the ship we are looking for (F, B or H) -->
+					<event_object_claimed pilot="player.entity"/>
+					<!-- Listening on every owner ship change toward the player ! not working without attribute object, which we do not know at the time of the check -->
+					<!-- <event_object_changed_true_owner owner="faction.player" /> -->
+					<check_all>
+						<event_cue_signalled cue="md.Setup.Start"/>
+						<!-- Game base check on Xenon research, no need to go futher if not fulfilled -->
+						<check_value value="ware.research_equipment_xenon.research.unlocked"/>
+					</check_all>
 				</check_any>
 			</conditions>
 			<!-- Delay before executing cue actions ? -->
 			<delay exact="1s"/>
 			<actions>
-				<debug_text text="'In XenonF Unlock'"/>
-				<!-- useless to reset listener once research is unlocked -->
+				<!-- if F wasnt researched yet -->
+				<do_if value="not ware.research_ship_xen_s_heavyfighter_01.research.unlocked">
+					<signal_cue_instantly cue="research_xenon_f"/>
+				</do_if>
+				<!-- if B wasnt researched yet -->
+				<do_if value="not ware.research_ship_xen_m_corvette_01.research.unlocked">
+					<signal_cue_instantly cue="research_xenon_b"/>
+				</do_if>
+				<!-- if H wasnt researched yet -->
+				<do_if value="not ware.research_ship_xen_l_terraformer_01.research.unlocked">
+					<signal_cue_instantly cue="research_xenon_h"/>
+				</do_if>
+				<!-- if any reasearch hasnt been unlocked yet, we reset the cue for next call, else, we do not need to listen for unlocks anymore -->
+				<do_if value="not ware.research_ship_xen_s_heavyfighter_01.research.unlocked or not ware.research_ship_xen_m_corvette_01.research.unlocked or not ware.research_ship_xen_l_terraformer_01.research.unlocked">
+					<!-- reset listener after this cue instance is destroyed -->
+					<reset_cue cue="this"/>
+				</do_if>
 			</actions>
 		</cue>
-		<cue name="XenonB_Research_Unlock">
+		<!-- ============											LISTENERS 				===================================== -->
+		<cue name="research_xenon_f" instantiate="true" onfail="cancel">
 			<conditions>
-				<event_cue_signalled/>
-				<check_any>
-					<!-- Setup condition for the XenonB to be added to space by Timelines -->
-					<check_value value="@userdata.scenario_waveattack_antigone_best_rating" min="1"/>
-					<check_value value="gamestart.storystate.story_timelines_quettanaut"/>
-					<check_value value="gamestart.storystate.story_timelines_grandmother"/>
-				</check_any>
+				<check_all>
+					<check_any>
+						<event_cue_signalled/>
+					</check_any>
+					<check_any>
+						<!-- Setup condition for the XenonF to be added to space by Timelines -->
+						<check_value value="@userdata.scenario_escort_1_best_rating" min="1"/>
+						<check_value value="gamestart.storystate.story_timelines_quettanaut"/>
+						<check_value value="gamestart.storystate.story_timelines_grandmother"/>
+					</check_any>
+				</check_all>
 			</conditions>
 			<!-- Delay before executing cue actions ? -->
 			<delay exact="1s"/>
 			<actions>
-				<debug_text text="'In XenonB Unlock'"/>
-				<!-- useless to reset listener once research is unlocked -->
+				<!-- Looking if Xenon F is owned by player -->
+				<find_ship_by_true_owner name="$PlayerXenonF" faction="faction.player" macro="macro.ship_xen_s_heavyfighter_01_a_macro" multiple="false" space="player.galaxy"/>
+				<debug_text text="'Found Player XenonF : { ' + $PlayerXenonF + ' } '"/>
+				<do_if value="not $PlayerXenonF">
+					<!-- Player do not own Xenon F, we can't unlock the research, reset the listener for next call -->
+					<reset_cue cue="this"/>
+				</do_if>
+				<do_else>
+					<!-- else, we unlock the research and do not reset the listener (useless to come back here once the research unlocked -->
+					<add_encyclopedia_entry type="researchables" item="'research_ship_xen_s_heavyfighter_01'"/>
+				</do_else>
 			</actions>
 		</cue>
-		<cue name="XenonH_Research_Unlock">
+		<cue name="research_xenon_b" instantiate="true" onfail="cancel">
 			<conditions>
-				<event_cue_signalled/>
-				<check_any>
-					<!-- Setup condition for the XenonH to be added to space by Timelines -->
-					<check_value value="@userdata.scenario_tharkas_cascade_best_rating" min="1"/>
-					<check_value value="gamestart.storystate.story_timelines_quettanaut"/>
-					<check_value value="gamestart.storystate.story_timelines_grandmother"/>
-				</check_any>
+				<check_all>
+					<check_any>
+						<event_cue_signalled/>
+					</check_any>
+					<check_any>
+						<!-- Setup condition for the XenonB to be added to space by Timelines -->
+						<check_value value="@userdata.scenario_waveattack_antigone_best_rating" min="1"/>
+						<check_value value="gamestart.storystate.story_timelines_quettanaut"/>
+						<check_value value="gamestart.storystate.story_timelines_grandmother"/>
+					</check_any>
+				</check_all>
 			</conditions>
 			<!-- Delay before executing cue actions ? -->
 			<delay exact="1s"/>
 			<actions>
-				<debug_text text="'In XenonH Unlock'"/>
-				<!-- useless to reset listener once research is unlocked -->
+				<!-- Looking if Xenon B is owned by player -->
+				<find_ship_by_true_owner name="$PlayerXenonB" faction="faction.player" macro="macro.ship_xen_m_corvette_01_a_macro" multiple="false" space="player.galaxy"/>
+				<debug_text text="'Found Player XenonB : { ' + $PlayerXenonB + ' } '"/>
+				<do_if value="not $PlayerXenonB">
+					<!-- Player do not own Xenon B, we can't unlock the research, reset the listener for next call -->
+					<reset_cue cue="this"/>
+				</do_if>
+				<do_else>
+					<!-- else, we unlock the research and do not reset the listener (useless to come back here once the research unlocked -->
+					<add_encyclopedia_entry type="researchables" item="'research_ship_xen_m_corvette_01'"/>
+				</do_else>
+			</actions>
+		</cue>
+		<cue name="research_xenon_h" instantiate="true" onfail="cancel">
+			<conditions>
+				<check_all>
+					<check_any>
+						<event_cue_signalled/>
+					</check_any>
+					<check_any>
+						<!-- Setup condition for the XenonH to be added to space by Timelines -->
+						<check_value value="@userdata.scenario_tharkas_cascade_best_rating" min="1"/>
+						<check_value value="gamestart.storystate.story_timelines_quettanaut"/>
+						<check_value value="gamestart.storystate.story_timelines_grandmother"/>
+					</check_any>
+				</check_all>
+			</conditions>
+			<!-- Delay before executing cue actions ? -->
+			<delay exact="1s"/>
+			<actions>
+				<!-- Looking if Xenon H is owned by player -->
+				<find_ship_by_true_owner name="$PlayerXenonH" faction="faction.player" macro="macro.ship_xen_l_terraformer_01_a_macro" multiple="false" space="player.galaxy"/>
+				<debug_text text="'Found Player XenonH : { ' + $PlayerXenonH + ' } '"/>
+				<do_if value="not $PlayerXenonH">
+					<!-- Player do not own Xenon B, we can't unlock the research, reset the listener for next call -->
+					<reset_cue cue="this"/>
+				</do_if>
+				<do_else>
+					<!-- else, we unlock the research and do not reset the listener (useless to come back here once the research unlocked -->
+					<add_encyclopedia_entry type="researchables" item="'research_ship_xen_l_terraformer_01'"/>
+				</do_else>
+			</actions>
+		</cue>
+		<!-- ============											 BLUEPRINT UNLOCK 						============================ -->
+		<cue name="blueprint_xenon_f">
+			<conditions>
+				<check_any>
+					<event_player_research_unlocked ware="ware.research_ship_xen_s_heavyfighter_01"/>
+					<check_all>
+						<event_cue_signalled cue="md.Setup.Start"/>
+						<check_value value="ware.research_ship_xen_s_heavyfighter_01.research.unlocked"/>
+					</check_all>
+				</check_any>
+			</conditions>
+			<delay exact="1s"/>
+			<actions>
+				<add_blueprints wares="ware.ship_xen_s_heavyfighter_01_a"/>
+				<add_blueprints wares="ware.engine_xen_s_combat_01_mk1"/>
+			</actions>
+		</cue>
+		<cue name="blueprint_xenon_b">
+			<conditions>
+				<check_any>
+					<event_player_research_unlocked ware="ware.research_ship_xen_m_corvette_01"/>
+					<check_all>
+						<event_cue_signalled cue="md.Setup.Start"/>
+						<check_value value="ware.research_ship_xen_m_corvette_01.research.unlocked"/>
+					</check_all>
+				</check_any>
+			</conditions>
+			<delay exact="1s"/>
+			<actions>
+				<add_blueprints wares="ware.ship_xen_m_corvette_01_a"/>
+			</actions>
+		</cue>
+		<cue name="blueprint_xenon_h">
+			<conditions>
+				<check_any>
+					<event_player_research_unlocked ware="ware.research_ship_xen_l_terraformer_01"/>
+					<check_all>
+						<event_cue_signalled cue="md.Setup.Start"/>
+						<check_value value="ware.research_ship_xen_l_terraformer_01.research.unlocked"/>
+					</check_all>
+				</check_any>
+			</conditions>
+			<delay exact="1s"/>
+			<actions>
+				<add_blueprints wares="ware.ship_xen_l_terraformer_01_a"/>
 			</actions>
 		</cue>
 	</cues>

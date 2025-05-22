@@ -178,5 +178,7 @@ xenon to default amounts conversion :
       </primary>
     </production>
 
-create a interval check on a cue with condition on ship ownership
+create a interval check on a cue with condition on ship ownership ?
+
+engines are here props/Engines/macros/engine_xen_s_combat_01_mk1_macro.xml
 
