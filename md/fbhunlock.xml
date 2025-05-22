@@ -32,25 +32,10 @@
 		<!-- Initial check after installing the mod, to know in which state the player was (already captured F, H or B ? Already researched Xenon ?) -->
 		<!-- Need to find a listener on an capture event if the player the the ship after game start -->
 		<cue name="check_state" instantiate="true" checkinterval="10s">
-			<conditions>
-				<!-- It seems check event are not compatible with the checkinterval attribute, disabled -->
-				<!-- Trigger at each game load or game start (usefull here ? since we check already when played as done the research) -->
-				<!-- <event_cue_signalled cue="md.Setup.Start"/> -->
-				<!-- Game base check on Xenon research, no need to go futher if not fulfilled -->
-				<!-- <event_player_research_unlocked ware="ware.research_equipment_xenon"/> -->
-				<!-- Listening on every claim made by the player to see if its one of the ship we are looking for (F, B or H) -->
-				<!-- <event_object_claimed pilot="player.entity"/> -->
-				<!-- Listening on every owner ship change toward the player ! not working without attribute object, which we do not know at the time of the check -->
-				<!-- <event_object_changed_true_owner owner="faction.player" /> -->
-				<check_all>
-					<event_cue_signalled cue="md.Setup.Start"/>
-					<!-- Game base check on Xenon research, no need to go futher if not fulfilled -->
-					<check_value value="ware.research_equipment_xenon.research.unlocked"/>
-				</check_all>
-			</conditions>
 			<!-- Delay before executing cue actions ? -->
 			<delay exact="1s"/>
 			<actions>
+				<debug_text text="'Checking research state of F, B and H every 10s...'"/>
 				<!-- if F wasnt researched yet -->
 				<do_if value="not ware.research_ship_xen_s_heavyfighter_01.research.unlocked">
 					<signal_cue_instantly cue="research_xenon_f"/>
@@ -68,6 +53,10 @@
 					<!-- reset listener after this cue instance is destroyed -->
 					<reset_cue cue="this"/>
 				</do_if>
+				<do_else>
+					<!-- remove cue we ve done everything we can -->
+					<cancel_cue cue="this"/>
+				</do_else>
 			</actions>
 		</cue>
 		<!-- ============											LISTENERS 				===================================== -->
@@ -191,7 +180,7 @@
 			<actions>
 				<debug_text text="'Adding Xenon B Blueprint !'"/>
 				<add_blueprints wares="ware.ship_xen_m_corvette_01_a"/>
-				<add_blueprints wares="ware.thruster_gen_m_allround_01_mk1"/>
+				<add_blueprints wares="ware.thruster_gen_m_allround_01_mk3"/>
 			</actions>
 		</cue>
 		<cue name="blueprint_xenon_h">
