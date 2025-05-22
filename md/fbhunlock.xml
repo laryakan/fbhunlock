@@ -33,21 +33,20 @@
 		<!-- Need to find a listener on an capture event if the player the the ship after game start -->
 		<cue name="check_state" instantiate="true" checkinterval="10s">
 			<conditions>
-				<check_any>
-					<!-- Trigger at each game load or game start (usefull here ? since we check already when played as done the research) -->
+				<!-- It seems check event are not compatible with the checkinterval attribute, disabled -->
+				<!-- Trigger at each game load or game start (usefull here ? since we check already when played as done the research) -->
+				<!-- <event_cue_signalled cue="md.Setup.Start"/> -->
+				<!-- Game base check on Xenon research, no need to go futher if not fulfilled -->
+				<!-- <event_player_research_unlocked ware="ware.research_equipment_xenon"/> -->
+				<!-- Listening on every claim made by the player to see if its one of the ship we are looking for (F, B or H) -->
+				<!-- <event_object_claimed pilot="player.entity"/> -->
+				<!-- Listening on every owner ship change toward the player ! not working without attribute object, which we do not know at the time of the check -->
+				<!-- <event_object_changed_true_owner owner="faction.player" /> -->
+				<check_all>
 					<event_cue_signalled cue="md.Setup.Start"/>
 					<!-- Game base check on Xenon research, no need to go futher if not fulfilled -->
-					<event_player_research_unlocked ware="ware.research_equipment_xenon"/>
-					<!-- Listening on every claim made by the player to see if its one of the ship we are looking for (F, B or H) -->
-					<event_object_claimed pilot="player.entity"/>
-					<!-- Listening on every owner ship change toward the player ! not working without attribute object, which we do not know at the time of the check -->
-					<!-- <event_object_changed_true_owner owner="faction.player" /> -->
-					<check_all>
-						<event_cue_signalled cue="md.Setup.Start"/>
-						<!-- Game base check on Xenon research, no need to go futher if not fulfilled -->
-						<check_value value="ware.research_equipment_xenon.research.unlocked"/>
-					</check_all>
-				</check_any>
+					<check_value value="ware.research_equipment_xenon.research.unlocked"/>
+				</check_all>
 			</conditions>
 			<!-- Delay before executing cue actions ? -->
 			<delay exact="1s"/>
@@ -72,12 +71,10 @@
 			</actions>
 		</cue>
 		<!-- ============											LISTENERS 				===================================== -->
-		<cue name="research_xenon_f" instantiate="true" onfail="cancel">
+		<cue name="research_xenon_f" instantiate="true">
 			<conditions>
 				<check_all>
-					<check_any>
-						<event_cue_signalled/>
-					</check_any>
+					<event_cue_signalled/>
 					<check_any>
 						<!-- Setup condition for the XenonF to be added to space by Timelines -->
 						<check_value value="@userdata.scenario_escort_1_best_rating" min="1"/>
@@ -97,17 +94,16 @@
 					<reset_cue cue="this"/>
 				</do_if>
 				<do_else>
+					<debug_text text="'Unlocking Xenon F research !'"/>
 					<!-- else, we unlock the research and do not reset the listener (useless to come back here once the research unlocked -->
 					<add_encyclopedia_entry type="researchables" item="'research_ship_xen_s_heavyfighter_01'"/>
 				</do_else>
 			</actions>
 		</cue>
-		<cue name="research_xenon_b" instantiate="true" onfail="cancel">
+		<cue name="research_xenon_b" instantiate="true">
 			<conditions>
 				<check_all>
-					<check_any>
-						<event_cue_signalled/>
-					</check_any>
+					<event_cue_signalled/>
 					<check_any>
 						<!-- Setup condition for the XenonB to be added to space by Timelines -->
 						<check_value value="@userdata.scenario_waveattack_antigone_best_rating" min="1"/>
@@ -127,17 +123,16 @@
 					<reset_cue cue="this"/>
 				</do_if>
 				<do_else>
+					<debug_text text="'Unlocking Xenon B research !'"/>
 					<!-- else, we unlock the research and do not reset the listener (useless to come back here once the research unlocked -->
 					<add_encyclopedia_entry type="researchables" item="'research_ship_xen_m_corvette_01'"/>
 				</do_else>
 			</actions>
 		</cue>
-		<cue name="research_xenon_h" instantiate="true" onfail="cancel">
+		<cue name="research_xenon_h" instantiate="true">
 			<conditions>
 				<check_all>
-					<check_any>
-						<event_cue_signalled/>
-					</check_any>
+					<event_cue_signalled/>
 					<check_any>
 						<!-- Setup condition for the XenonH to be added to space by Timelines -->
 						<check_value value="@userdata.scenario_tharkas_cascade_best_rating" min="1"/>
@@ -157,6 +152,7 @@
 					<reset_cue cue="this"/>
 				</do_if>
 				<do_else>
+					<debug_text text="'Unlocking Xenon H research !'"/>
 					<!-- else, we unlock the research and do not reset the listener (useless to come back here once the research unlocked -->
 					<add_encyclopedia_entry type="researchables" item="'research_ship_xen_l_terraformer_01'"/>
 				</do_else>
@@ -175,8 +171,10 @@
 			</conditions>
 			<delay exact="1s"/>
 			<actions>
+				<debug_text text="'Adding Xenon F Blueprint !'"/>
 				<add_blueprints wares="ware.ship_xen_s_heavyfighter_01_a"/>
-				<add_blueprints wares="ware.engine_xen_s_combat_01_mk1"/>
+				<add_blueprints wares="ware.thruster_gen_s_combat_01_mk1"/>
+				<!-- <add_blueprints wares="ware.engine_xen_s_combat_01_mk1"/> -->
 			</actions>
 		</cue>
 		<cue name="blueprint_xenon_b">
@@ -191,7 +189,9 @@
 			</conditions>
 			<delay exact="1s"/>
 			<actions>
+				<debug_text text="'Adding Xenon B Blueprint !'"/>
 				<add_blueprints wares="ware.ship_xen_m_corvette_01_a"/>
+				<add_blueprints wares="ware.thruster_gen_m_allround_01_mk1"/>
 			</actions>
 		</cue>
 		<cue name="blueprint_xenon_h">
@@ -206,7 +206,9 @@
 			</conditions>
 			<delay exact="1s"/>
 			<actions>
+				<debug_text text="'Adding Xenon H Blueprint !'"/>
 				<add_blueprints wares="ware.ship_xen_l_terraformer_01_a"/>
+				<add_blueprints wares="ware.thruster_gen_l_allround_01_mk1"/>
 			</actions>
 		</cue>
 	</cues>
