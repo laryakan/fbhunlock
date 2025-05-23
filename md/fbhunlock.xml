@@ -34,29 +34,29 @@
 		<cue name="check_state" instantiate="true" checkinterval="10s">
 			<!-- Delay before executing cue actions ? -->
 			<delay exact="1s"/>
-			<actions>
+			<actions>				
 				<debug_text text="'Checking research state of F, B and H every 10s...'"/>
-				<!-- if F wasnt researched yet -->
-				<do_if value="not ware.research_ship_xen_s_heavyfighter_01.research.unlocked">
+				<set_value name="$ResearchF" exact="ware.research_ship_xen_s_heavyfighter_01" />
+				<set_value name="$ResearchB" exact="ware.research_ship_xen_m_corvette_01" />
+				<set_value name="$ResearchH" exact="ware.research_ship_xen_m_corvette_01" />
+				<!-- if F research wasnt unlocked yet -->
+				<do_if value="not $ResearchF.research.unlocked and not @player.entity.$ship_xen_s_heavyfighter_01_research_unlocked">
 					<signal_cue_instantly cue="research_xenon_f"/>
 				</do_if>
-				<!-- if B wasnt researched yet -->
-				<do_if value="not ware.research_ship_xen_m_corvette_01.research.unlocked">
+				<!--  if B research wasnt unlocked yet -->
+				<do_if value="not $ResearchB.research.unlocked and not @player.entity.$ship_xen_m_corvette_01_research_unlocked">
 					<signal_cue_instantly cue="research_xenon_b"/>
 				</do_if>
-				<!-- if H wasnt researched yet -->
-				<do_if value="not ware.research_ship_xen_l_terraformer_01.research.unlocked">
+				<!-- if H research wasnt unlocked yet -->
+				<do_if value="not $ResearchH.research.unlocked and not @player.entity.$ship_xen_l_terraformer_01_research_unlocked">
 					<signal_cue_instantly cue="research_xenon_h"/>
 				</do_if>
 				<!-- if any reasearch hasnt been unlocked yet, we reset the cue for next call, else, we do not need to listen for unlocks anymore -->
-				<do_if value="not ware.research_ship_xen_s_heavyfighter_01.research.unlocked or not ware.research_ship_xen_m_corvette_01.research.unlocked or not ware.research_ship_xen_l_terraformer_01.research.unlocked">
+				<do_if value="not @player.entity.$ship_xen_s_heavyfighter_01_research_unlocked or not @player.entity.$ship_xen_m_corvette_01_research_unlocked or not @player.entity.$ship_xen_l_terraformer_01_research_unlocked">
 					<!-- reset listener after this cue instance is destroyed -->
+					<debug_text text="'Reset checking cue'"/>
 					<reset_cue cue="this"/>
 				</do_if>
-				<do_else>
-					<!-- remove cue we ve done everything we can -->
-					<cancel_cue cue="this"/>
-				</do_else>
 			</actions>
 		</cue>
 		<!-- ============											LISTENERS 				===================================== -->
@@ -64,6 +64,8 @@
 			<conditions>
 				<check_all>
 					<event_cue_signalled/>
+					<!-- check if research is not already unlocked -->
+					<check_value value="not @player.entity.$ship_xen_s_heavyfighter_01_research_unlocked"/>
 					<check_any>
 						<!-- Setup condition for the XenonF to be added to space by Timelines -->
 						<check_value value="@userdata.scenario_escort_1_best_rating" min="1"/>
@@ -86,6 +88,9 @@
 					<debug_text text="'Unlocking Xenon F research !'"/>
 					<!-- else, we unlock the research and do not reset the listener (useless to come back here once the research unlocked -->
 					<add_encyclopedia_entry type="researchables" item="'research_ship_xen_s_heavyfighter_01'"/>
+					<!-- mark research as unlocked -->
+					<set_value name="player.entity.$ship_xen_s_heavyfighter_01_research_unlocked" exact="true"/>
+					<show_notification text="'You can now research how to build the Xenon F'"/>
 				</do_else>
 			</actions>
 		</cue>
@@ -93,6 +98,8 @@
 			<conditions>
 				<check_all>
 					<event_cue_signalled/>
+					<!-- check if research is not already unlocked -->
+					<check_value value="not @player.entity.$ship_xen_m_corvette_01_research_unlocked"/>
 					<check_any>
 						<!-- Setup condition for the XenonB to be added to space by Timelines -->
 						<check_value value="@userdata.scenario_waveattack_antigone_best_rating" min="1"/>
@@ -115,6 +122,9 @@
 					<debug_text text="'Unlocking Xenon B research !'"/>
 					<!-- else, we unlock the research and do not reset the listener (useless to come back here once the research unlocked -->
 					<add_encyclopedia_entry type="researchables" item="'research_ship_xen_m_corvette_01'"/>
+					<!-- mark research as unlocked -->
+					<set_value name="player.entity.$ship_xen_m_corvette_01_research_unlocked" exact="true"/>
+					<show_notification text="'You can now research how to build the Xenon B'"/>
 				</do_else>
 			</actions>
 		</cue>
@@ -122,6 +132,8 @@
 			<conditions>
 				<check_all>
 					<event_cue_signalled/>
+					<!-- check if research is not already unlocked -->
+					<check_value value="not @player.entity.$ship_xen_l_terraformer_01_research_unlocked"/>
 					<check_any>
 						<!-- Setup condition for the XenonH to be added to space by Timelines -->
 						<check_value value="@userdata.scenario_tharkas_cascade_best_rating" min="1"/>
@@ -144,6 +156,9 @@
 					<debug_text text="'Unlocking Xenon H research !'"/>
 					<!-- else, we unlock the research and do not reset the listener (useless to come back here once the research unlocked -->
 					<add_encyclopedia_entry type="researchables" item="'research_ship_xen_l_terraformer_01'"/>
+					<!-- mark research as unlocked -->
+					<set_value name="player.entity.$ship_xen_l_terraformer_01_research_unlocked" exact="true"/>
+					<show_notification text="'You can now research how to build the Xenon H'"/>
 				</do_else>
 			</actions>
 		</cue>

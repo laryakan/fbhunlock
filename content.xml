@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <content id="fbhunlock"
-name="F,B&amp;HUnlock"
-description="Unlock the F B and H blueprint research once getting them from Timelines"
+name="FBHUnlock"
+description="Unlock Xenon F, B and H research through Timelines"
 author="Laryakan"
 version="100"
 date="2025-05-22"
