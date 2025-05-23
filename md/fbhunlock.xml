@@ -31,14 +31,21 @@
 		<!-- ============											START 					===================================== -->
 		<!-- Initial check after installing the mod, to know in which state the player was (already captured F, H or B ? Already researched Xenon ?) -->
 		<!-- Need to find a listener on an capture event if the player the the ship after game start -->
-		<cue name="check_state" instantiate="true" checkinterval="10s">
+		<cue name="check_state" checkinterval="10s" onfail="cancel">
+			<conditions>
+				<check_any>
+					<check_value value="not @player.entity.$ship_xen_s_heavyfighter_01_research_unlocked"/>
+					<check_value value="not @player.entity.$ship_xen_m_corvette_01_research_unlocked"/>
+					<check_value value="not @player.entity.$ship_xen_l_terraformer_01_research_unlocked"/>
+				</check_any>
+			</conditions>
 			<!-- Delay before executing cue actions ? -->
 			<delay exact="1s"/>
-			<actions>				
-				<debug_text text="'Checking research state of F, B and H every 10s...'"/>
-				<set_value name="$ResearchF" exact="ware.research_ship_xen_s_heavyfighter_01" />
-				<set_value name="$ResearchB" exact="ware.research_ship_xen_m_corvette_01" />
-				<set_value name="$ResearchH" exact="ware.research_ship_xen_m_corvette_01" />
+			<actions>
+				<debug_text text="'Checking research state of F, B and H every (10s)...'"/>
+				<set_value name="$ResearchF" exact="ware.research_ship_xen_s_heavyfighter_01"/>
+				<set_value name="$ResearchB" exact="ware.research_ship_xen_m_corvette_01"/>
+				<set_value name="$ResearchH" exact="ware.research_ship_xen_m_corvette_01"/>
 				<!-- if F research wasnt unlocked yet -->
 				<do_if value="not $ResearchF.research.unlocked and not @player.entity.$ship_xen_s_heavyfighter_01_research_unlocked">
 					<signal_cue_instantly cue="research_xenon_f"/>
@@ -79,7 +86,7 @@
 			<actions>
 				<!-- Looking if Xenon F is owned by player -->
 				<find_ship_by_true_owner name="$PlayerXenonF" faction="faction.player" macro="macro.ship_xen_s_heavyfighter_01_a_macro" multiple="false" space="player.galaxy"/>
-				<debug_text text="'Found Player XenonF : { ' + $PlayerXenonF + ' } '"/>
+				<debug_text text="'Search for Player XenonF : { ' + $PlayerXenonF + ' } '"/>
 				<do_if value="not $PlayerXenonF">
 					<!-- Player do not own Xenon F, we can't unlock the research, reset the listener for next call -->
 					<reset_cue cue="this"/>
@@ -113,7 +120,7 @@
 			<actions>
 				<!-- Looking if Xenon B is owned by player -->
 				<find_ship_by_true_owner name="$PlayerXenonB" faction="faction.player" macro="macro.ship_xen_m_corvette_01_a_macro" multiple="false" space="player.galaxy"/>
-				<debug_text text="'Found Player XenonB : { ' + $PlayerXenonB + ' } '"/>
+				<debug_text text="'Search for XenonB : { ' + $PlayerXenonB + ' } '"/>
 				<do_if value="not $PlayerXenonB">
 					<!-- Player do not own Xenon B, we can't unlock the research, reset the listener for next call -->
 					<reset_cue cue="this"/>
@@ -147,7 +154,7 @@
 			<actions>
 				<!-- Looking if Xenon H is owned by player -->
 				<find_ship_by_true_owner name="$PlayerXenonH" faction="faction.player" macro="macro.ship_xen_l_terraformer_01_a_macro" multiple="false" space="player.galaxy"/>
-				<debug_text text="'Found Player XenonH : { ' + $PlayerXenonH + ' } '"/>
+				<debug_text text="'Search for XenonH : { ' + $PlayerXenonH + ' } '"/>
 				<do_if value="not $PlayerXenonH">
 					<!-- Player do not own Xenon B, we can't unlock the research, reset the listener for next call -->
 					<reset_cue cue="this"/>
