@@ -1,5 +1,5 @@
 # fbhunlock
-Allow you to research F, B and H blueprint with a new build method once unlocked through Timelines and getting the ship in open universe.
+Allow you to research F, B and H blueprints with a new build method once unlocked through Timelines and getting the ship in open universe.
 
 ## What it does ?
 Unlock research to be the same as for the Cutlass, Odachi or Sapporo, once unlocked in Timelines, get the ship in open universe and start the research to build them.
@@ -24,12 +24,12 @@ THEN: The new B research should be available, research it and it will unlock the
 - Do "The Fade" Terminus in Timelines (Rating 1)
 - Get a Xenon H (the one unlocked through Timelines in Tharkra's Cascade XV or another)
 - Research "Xenon Equipment"
-THEN: The new H research should be available, research it and it will unlock the Xenon H to be build in your own Wharf
+THEN: The new H research should be available, research it and it will unlock the Xenon H to be build in your own Shipyard
 
 ## Technically (How it works) ?
 - CUE which enables F, B and H research is triggered with the same conditions which adds ships in the universe from Vanilla Timelines
 - If you met Timelines requirement, have researched Xenon Equipment and own a F, B or H, additionals research for the designated ship will be available for research
-- Once the research is done, you will be able to buil the designated ship with a new Default method or Terran method. The old Default method has become Xenon method and is still not available to the player.
+- Once the research is done, you will be able to build the designated ship with a new Default method or Terran method. The old Default method has become Xenon method and is still not available to the player.
 
 ## Alternative ?
 This mod aim to add these 3 ships build method in a "lore friendly" way, reproducing the way the Cutlass, Odachi and Sapporo are made available for building, but with the Xenon Reseach Equipment in addition.
@@ -53,5 +53,5 @@ If you want to keep you save game clean I wouldn't recommend to uninstall the mo
 - Timelines DLC
 
 - github : https://github.com/laryakan/fbhunlock
-- nexus : <tba>
+- nexus : https://www.nexusmods.com/x4foundations/mods/1709
 - nexus user : https://next.nexusmods.com/profile/Laryakan
