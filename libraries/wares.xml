@@ -113,9 +113,9 @@
 	</add>
 	
 	<!-- ========================= DEBUG ========================= -->
-	<!-- This is for debug purpose, it will unlock research_equipment_xenon for custom game , end user version -->
-	<replace sel="/wares/ware[@id='research_equipment_xenon']/@tags">research</replace>
-	<replace sel="/wares/ware[@id='research_ship_xen_s_heavyfighter_01']/@tags">research</replace>
-	<replace sel="/wares/ware[@id='research_ship_xen_m_corvette_01']/@tags">research</replace>
-	<replace sel="/wares/ware[@id='research_ship_xen_l_terraformer_01']/@tags">research</replace>
+	<!-- This is for debug purpose, it will unlock research_equipment_xenon for custom game , end user version must have these disabled -->
+	<!-- <replace sel="/wares/ware[@id='research_equipment_xenon']/@tags">research</replace> -->
+	<!-- <replace sel="/wares/ware[@id='research_ship_xen_s_heavyfighter_01']/@tags">research</replace> -->
+	<!-- <replace sel="/wares/ware[@id='research_ship_xen_m_corvette_01']/@tags">research</replace> -->
+	<!-- <replace sel="/wares/ware[@id='research_ship_xen_l_terraformer_01']/@tags">research</replace> -->
 </diff>

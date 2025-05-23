@@ -3,31 +3,6 @@
 <!-- mdscript doc : https://wiki.egosoft.com/X%20Rebirth%20Wiki/Modding%20support/Mission%20Director%20Guide/ -->
 <mdscript xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="md.xsd" name="FBHUnlock">
 	<cues>
-		<!-- debug cue... for debugging :-) -->
-		<cue name="debug_state" instantiate="true">
-			<conditions>
-				<!-- Trigger at each game load or game start (usefull here ? since we check already when played as done the research) -->
-				<event_cue_signalled cue="md.Setup.Start"/>
-			</conditions>
-			<actions>
-				<!-- Looking if Xenon F is owned by player -->
-				<find_ship_by_true_owner name="$PlayerXenonF" faction="faction.player" macro="macro.ship_xen_s_heavyfighter_01_a_macro" multiple="false" space="player.galaxy"/>
-				<debug_text text="'Found Player XenonF : { ' + $PlayerXenonF + ' } '"/>
-				<!-- Looking if Xenon B is owned by player -->
-				<find_ship_by_true_owner name="$PlayerXenonB" faction="faction.player" macro="macro.ship_xen_m_corvette_01_a_macro" multiple="false" space="player.galaxy"/>
-				<debug_text text="'Found Player XenonB : { ' + $PlayerXenonB + ' } '"/>
-				<!-- Looking if Xenon H is owned by player -->
-				<find_ship_by_true_owner name="$PlayerXenonH" faction="faction.player" macro="macro.ship_xen_l_terraformer_01_a_macro" multiple="false" space="player.galaxy"/>
-				<debug_text text="'Found Player XenonH : { ' + $PlayerXenonH + ' } '"/>
-				<!-- Search for a list of player ships -->
-				<debug_text text="'Player : { ' + player + ' } '"/>
-				<!-- Search for a list of abandonned ships ? From which we can know if it has been claimed since -->
-				<debug_text text="'AbandonedShips ? : { ' + global.$IgnoredAbandonedShips + ' } '"/>
-				<!-- in game notification -->
-				<!-- reset listener after this cue instance is destroyed (or not if you want it to be executed a single time, then you dont need to instanciate cue) -->
-				<reset_cue cue="this"/>
-			</actions>
-		</cue>
 		<!-- ============											START 					===================================== -->
 		<!-- Initial check after installing the mod, to know in which state the player was (already captured F, H or B ? Already researched Xenon ?) -->
 		<!-- Need to find a listener on an capture event if the player the the ship after game start -->
