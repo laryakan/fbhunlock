@@ -11,19 +11,22 @@ As for the 3 ships now buildable through this mod, you must also have done the X
 #### For the Xenon F (in no particular order) :
 - Do "Impeded Extraction" Nodus in Timelines (Rating 1)
 - Get a Xenon F (the one unlocked through Timelines in Nopileus' Fortune II or another)
-- Research "Xenon Equipment"
+- Research "Xenon Equipment" (you must own a Xenon F after completing the research)
+NB : You must own a Xenon F at the time all the criteria are met
 THEN: The new F research should be available, research it and it will unlock the Xenon F to be build in your own Wharf
 
 #### For the Xenon B (in no particular order) :
 - Do "Attack on Antigone" Nodus in Timelines (Rating 1)
 - Get a Xenon B (the one unlocked through Timelines in Antigone Memorial or another)
-- Research "Xenon Equipment"
+- Research "Xenon Equipment" (you must own a Xenon B after completing the research)
+NB : You must own a Xenon B at the time all the criteria are met
 THEN: The new B research should be available, research it and it will unlock the Xenon B to be build in your own Wharf
 
 #### For the Xenon H (in no particular order) :
 - Do "The Fade" Terminus in Timelines (Rating 1)
 - Get a Xenon H (the one unlocked through Timelines in Tharkra's Cascade XV or another)
-- Research "Xenon Equipment"
+- Research "Xenon Equipment" (you must own a Xenon H after completing the research)
+NB : You must own a Xenon H at the time all the criteria are met
 THEN: The new H research should be available, research it and it will unlock the Xenon H to be build in your own Shipyard
 
 ## Technically (How it works) ?
