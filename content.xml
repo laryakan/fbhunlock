@@ -3,7 +3,7 @@
 name="FBHUnlock"
 description="Unlock Xenon F, B and H research through Timelines"
 author="Laryakan"
-version="100"
+version="101"
 date="2025-05-22"
 save="false"
 enabled="1" >

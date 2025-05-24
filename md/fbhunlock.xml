@@ -48,6 +48,8 @@
 					<event_cue_signalled/>
 					<!-- check if research is not already unlocked -->
 					<check_value value="not @player.entity.$ship_xen_s_heavyfighter_01_research_unlocked"/>
+					<!-- check if the xenon equipment has been researched -->
+					<check_value value="ware.research_equipment_xenon.research.unlocked"/>
 					<check_any>
 						<!-- Setup condition for the XenonF to be added to space by Timelines -->
 						<check_value value="@userdata.scenario_escort_1_best_rating" min="1"/>
@@ -82,6 +84,8 @@
 					<event_cue_signalled/>
 					<!-- check if research is not already unlocked -->
 					<check_value value="not @player.entity.$ship_xen_m_corvette_01_research_unlocked"/>
+					<!-- check if the xenon equipment has been researched -->
+					<check_value value="ware.research_equipment_xenon.research.unlocked"/>
 					<check_any>
 						<!-- Setup condition for the XenonB to be added to space by Timelines -->
 						<check_value value="@userdata.scenario_waveattack_antigone_best_rating" min="1"/>
@@ -116,6 +120,8 @@
 					<event_cue_signalled/>
 					<!-- check if research is not already unlocked -->
 					<check_value value="not @player.entity.$ship_xen_l_terraformer_01_research_unlocked"/>
+					<!-- check if the xenon equipment has been researched -->
+					<check_value value="ware.research_equipment_xenon.research.unlocked"/>
 					<check_any>
 						<!-- Setup condition for the XenonH to be added to space by Timelines -->
 						<check_value value="@userdata.scenario_tharkas_cascade_best_rating" min="1"/>
