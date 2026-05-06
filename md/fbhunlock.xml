@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- FBHUnlock mod by Laryakan, May 2025 -->
+<!-- FBHUnlock mod by Laryakan, May 2025, fixed May 2026, v9.0 ready -->
 <!-- mdscript doc : https://wiki.egosoft.com/X%20Rebirth%20Wiki/Modding%20support/Mission%20Director%20Guide/ -->
 <mdscript xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="md.xsd" name="FBHUnlock">
 	<cues>
@@ -20,7 +20,7 @@
 				<debug_text text="'Checking research state of F, B and H every (10s)...'"/>
 				<set_value name="$ResearchF" exact="ware.research_ship_xen_s_heavyfighter_01"/>
 				<set_value name="$ResearchB" exact="ware.research_ship_xen_m_corvette_01"/>
-				<set_value name="$ResearchH" exact="ware.research_ship_xen_m_corvette_01"/>
+				<set_value name="$ResearchH" exact="ware.research_ship_xen_l_terraformer_01"/>
 				<!-- if F research wasnt unlocked yet -->
 				<do_if value="not $ResearchF.research.unlocked and not @player.entity.$ship_xen_s_heavyfighter_01_research_unlocked">
 					<signal_cue_instantly cue="research_xenon_f"/>
